@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-sdk android:minSdkVersion="@string/min_sdk" android:targetSdkVersion="@string/target_sdk" />
+
     <application
         android:label="contentsquare_issue"
         android:name="${applicationName}"

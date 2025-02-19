@@ -25,7 +25,7 @@ Future<void> main() async {
           [DeviceOrientation.portraitUp]);
 
 
-      runApp(const MyApp());
+      runApp(ContentsquareRoot(maskingConfig: MaskingConfig.unMaskAll(), child: const MyApp()));
     },
     (error, stackTrace) {
       print(error);
@@ -39,11 +39,7 @@ class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return ContentsquareRoot(
-      autostart: true,
-      maskingConfig: MaskingConfig.maskAll(),
-      child: MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           // This is the theme of your application.
@@ -65,9 +61,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      ),
-    );
-  }
+      );
 }
 
 class MyHomePage extends StatefulWidget {
@@ -89,19 +83,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -110,6 +91,18 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+    /// **************************************************** ///
+    /// CONTENT SQUARE
+    /// **************************************************** ///
+    Contentsquare().optIn();
+    unawaited(Contentsquare().send(
+      'splashscreen',
+      customVars: [
+        CustomVar(index: 0, name: 'page_type_1', value: 'splashscreen'),
+        CustomVar(index: 0, name: 'page_type_2', value: 'splashscreen'),
+      ],
+    ));
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -139,21 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      )// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
